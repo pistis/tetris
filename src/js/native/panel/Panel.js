@@ -1,4 +1,4 @@
-import { override } from "../../Utils.js";
+import { override } from "../../common/Utils.js";
 
 const Panel = class {
   constructor() {}

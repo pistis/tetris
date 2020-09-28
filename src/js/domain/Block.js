@@ -1,4 +1,4 @@
-import { prop, random } from "../Utils.js";
+import { prop, random } from "../common/Utils.js";
 
 // 각 블록을 2차원 배열로 표현
 // 변환값 예시

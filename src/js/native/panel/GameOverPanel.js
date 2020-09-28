@@ -1,4 +1,4 @@
-import { prop } from "../../Utils.js";
+import { prop } from "../../common/Utils.js";
 import { sel } from "../Utils.js";
 import Game from "../../Game.js";
 import Panel from "./Panel.js";

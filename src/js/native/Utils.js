@@ -1,4 +1,4 @@
-import { hexToRgb } from "../Color.js";
+import { hexToRgb } from "../common/Color.js";
 
 export const sel = (selector) => document.querySelector(selector);
 export const addClass = (el, cls) => el.classList.add(cls);

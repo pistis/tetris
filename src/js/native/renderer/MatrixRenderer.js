@@ -1,4 +1,4 @@
-import { prop, override, err } from "../../Utils.js";
+import { prop, override, err } from "../../common/Utils.js";
 import MatrixData from "../../protocol/MatrixData.js";
 
 const MatrixRenderer = class {

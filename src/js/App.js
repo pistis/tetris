@@ -1,5 +1,5 @@
 import { sel } from "./native/Utils.js";
-import SETTINGS from "./SETTINGS.js";
+import SETTINGS from "./common/SETTINGS.js";
 import Game from "./Game.js";
 import TitlePanel from "./native/panel/TitlePanel.js";
 import IntroPanel from "./native/panel/IntroPanel.js";

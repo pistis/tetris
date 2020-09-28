@@ -1,4 +1,4 @@
-import { prop } from "../Utils.js";
+import { prop } from "../common/Utils.js";
 
 const MatrixData = class extends Array {
   constructor(row, col) {

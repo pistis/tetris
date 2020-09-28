@@ -1,4 +1,4 @@
-import { prop } from "../Utils.js";
+import { prop } from "../common/Utils.js";
 import Block from "./Block.js";
 import MatrixData from "../protocol/MatrixData.js";
 import Game from "../Game.js";

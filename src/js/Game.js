@@ -1,4 +1,4 @@
-import { prop, err } from "./Utils.js";
+import { prop, err } from "./common/Utils.js";
 import { inner } from "./native/Utils.js";
 import Tetris from "./domain/Tetris.js";
 
