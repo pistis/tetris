@@ -22,7 +22,7 @@ $ open http://localhost:8080/
   - score / stage / speed
   - save score
   - ranking panel
-  -
+  - controll view
 - improvement
   - checking game over logic
   - clear/adjust line animation/effect
