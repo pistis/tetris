@@ -1,6 +1,6 @@
 import { prop } from "../../common/Utils.js";
 import { sel } from "../Utils.js";
-import Game from "../../Game.js";
+import Game from "../../host/Game.js";
 import Panel from "./Panel.js";
 
 const IntroPanel = class extends Panel {

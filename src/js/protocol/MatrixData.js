@@ -17,7 +17,7 @@ const MatrixData = class extends Array {
     r[col] = value;
     return this;
   }
-  isOverlap(row, col) {
+  overlap(row, col) {
     const r = this[row];
     return r && r[col];
   }

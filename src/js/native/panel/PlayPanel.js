@@ -1,8 +1,10 @@
 import { prop } from "../../common/Utils.js";
 import { sel } from "../Utils.js";
-import Game from "../../Game.js";
+import SETTINGS from "../../common/SETTINGS.js";
+import Game from "../../host/Game.js";
 import Panel from "./Panel.js";
 import TableMatrixRenderer from "../renderer/TableMatrixRenderer.js";
+import Tetris from "../../domain/Tetris.js";
 
 const PlayPanel = class extends Panel {
   #rootViewId = "intro_panel";
@@ -26,60 +28,77 @@ const PlayPanel = class extends Panel {
     this.play();
   }
   _beforeDestroyed() {
-    window.removeEventListener("keydown", this.onKeyDown);
+    this.removeEventListener();
   }
   _destroyed() {}
   initBindEventListener() {
     this.onKeyDown = this.onKeyDown.bind(this);
   }
+  addEventListener() {
+    window.addEventListener("keydown", this.onKeyDown);
+  }
+  removeEventListener() {
+    window.removeEventListener("keydown", this.onKeyDown);
+  }
   play() {
-    this.playRenderer = new TableMatrixRenderer(
-      this._game.col,
-      this._game.row,
+    // this.nextBlockRenderer = new TableMatrixRenderer
+    this.boardRenderer = new TableMatrixRenderer(
+      SETTINGS.PLAY.COL,
+      SETTINGS.PLAY.ROW,
       sel(`#${this.#rootViewId} table`),
       "#000000"
     );
 
-    window.addEventListener("keydown", this.onKeyDown);
-
-    this._game.playTetris({
-      [Game.EVENTS.TETRIS_PLAY_MOVED_BLOCK]: (matrixData) => {
-        this.playRenderer.render(matrixData);
+    this.tetris = new Tetris(SETTINGS.PLAY.COL, SETTINGS.PLAY.ROW, {
+      start: () => {
+        this.addEventListener();
+        console.log("game start");
       },
-      [Game.EVENTS.TETRIS_PLAY_REMOVED_LINE]: (matrixData) => {
-        this.playRenderer.render(matrixData);
-      },
-      [Game.EVENTS.TETRIS_PLAY_ADJUSTED_LINE]: (matrixData) => {
-        this.playRenderer.render(matrixData);
-      },
-      [Game.EVENTS.TETRIS_PLAY_GAME_OVER]: () => {
-        if (window.confirm("Game Over")) {
-          this._game.setState(Game.gameOver);
+      update: (
+        boardMatrixData = null,
+        nextBlockMatrixData = null,
+        score = null,
+        level = null
+      ) => {
+        // console.log(
+        //   "update",
+        //   boardMatrixData,
+        //   nextBlockMatrixData,
+        //   score,
+        //   level
+        // );
+        if (boardMatrixData) {
+          this.boardRenderer.render(boardMatrixData);
         }
       },
+      end: () => {
+        this.removeEventListener();
+        console.log("game over");
+      },
     });
+
+    this.tetris.play();
   }
   onKeyDown(e) {
     const now = performance.now();
     let lastKeyIn = 0;
-    if (now - lastKeyIn > 100) {
+    if (now - lastKeyIn > SETTINGS.EVENT.KEY_INPUT_INTERVAL) {
       lastKeyIn = now;
-      console.log(e.keyCode);
       switch (e.keyCode) {
         case 37: // left arrow
-          this._game.requestLeftMoveBlock();
+          this.tetris.moveLeft();
           break;
         case 39: // right arrow
-          this._game.requestRightMoveBlock();
+          this.tetris.moveRight();
           break;
         case 38: // up arrow
-          this._game.requestRotateBlock();
+          this.tetris.rotate();
           break;
         case 40: // down arrow
-          this._game.requestDownMoveBlock();
+          this.tetris.moveDown();
           break;
-        case 32: // space arrow
-          this._game.requestDownMoveToBottomBlock();
+        case 32: // space
+          this.tetris.moveBottom();
           break;
       }
     }

@@ -26,11 +26,11 @@ const Block = class {
       .map((v) => v.split("|").map((v) => v.split("").map((v) => parseInt(v)))),
   ]);
   static get() {
-    const type = this.blocks[random(this.blocks.length)];
-    return new Block(...type);
+    const [color, blocks] = this.blocks[random(this.blocks.length)];
+    return new Block(color, blocks, 0, 0);
   }
-  constructor(color, blocks) {
-    prop(this, { color, blocks, rotate: 0 });
+  constructor(color, blocks, x, y) {
+    prop(this, { color, blocks, x, y, rotate: 0 });
   }
   left() {
     if (--this.rotate < 0) {
@@ -41,6 +41,10 @@ const Block = class {
     if (++this.rotate > 3) {
       this.rotate = 0;
     }
+  }
+  move(dirX, dirY) {
+    this.x += dirX;
+    this.y += dirY;
   }
   get block() {
     return this.blocks[this.rotate];
