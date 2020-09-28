@@ -7,6 +7,10 @@ $ http-server
 $ open http://localhost:8080/
 ```
 
+## Screenshot
+![image](https://user-images.githubusercontent.com/4979560/94468772-ee3a0480-01ff-11eb-92a0-9d65027af49a.png)
+
+
 ## Todos
 
 - refactoring
