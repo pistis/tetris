@@ -7,12 +7,13 @@ import TableMatrixRenderer from "../renderer/TableMatrixRenderer.js";
 import Tetris from "../../domain/Tetris.js";
 
 const PlayPanel = class extends Panel {
-  #rootViewId = "intro_panel";
+  #rootViewId = "play_panel";
   #template = `
     <div id="${
       this.#rootViewId
     }" class="panel" style="width:100%; height:100%;">
-      <table style="width:100%;height:100%;border:0px;border-spacing:0;border-collapse:collapse;"></table>
+        <table class="block"></table>
+        <table class="board" style="width:100%;height:100%;border:0px;border-spacing:0;border-collapse:collapse;"></table>
     </div>
   `;
   constructor() {
@@ -41,34 +42,44 @@ const PlayPanel = class extends Panel {
     window.removeEventListener("keydown", this.onKeyDown);
   }
   play() {
-    // this.nextBlockRenderer = new TableMatrixRenderer
     this.boardRenderer = new TableMatrixRenderer(
       SETTINGS.PLAY.COL,
       SETTINGS.PLAY.ROW,
-      sel(`#${this.#rootViewId} table`),
+      sel(`#${this.#rootViewId} table.board`),
       "#000000"
     );
+
+    const nextBlockBoardEl = sel(`#${this.#rootViewId} table.block`);
 
     this.tetris = new Tetris(SETTINGS.PLAY.COL, SETTINGS.PLAY.ROW, {
       start: () => {
         this.addEventListener();
         console.log("game start");
       },
+      // TODO : 전달받는 데이터별로 update를 만드는게 좋을까?
       update: (
         boardMatrixData = null,
         nextBlockMatrixData = null,
         score = null,
         level = null
       ) => {
-        // console.log(
-        //   "update",
-        //   boardMatrixData,
-        //   nextBlockMatrixData,
-        //   score,
-        //   level
-        // );
         if (boardMatrixData) {
           this.boardRenderer.render(boardMatrixData);
+        }
+        if (nextBlockMatrixData) {
+          const col = nextBlockMatrixData[0].length;
+          const row = nextBlockMatrixData.length;
+          nextBlockBoardEl.innerHTML = "";
+          nextBlockBoardEl.style.cssText = `position:absolute;left:450px;border:1px solid black;width:${
+            col * 40
+          }px;height:${row * 40}px`;
+          const nextBlockRenderer = new TableMatrixRenderer(
+            col,
+            row,
+            nextBlockBoardEl,
+            "#000000"
+          );
+          nextBlockRenderer.render(nextBlockMatrixData);
         }
       },
       end: () => {

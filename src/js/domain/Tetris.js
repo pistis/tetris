@@ -17,15 +17,31 @@ const Tetris = class {
     });
   }
 
-  _nextTick() {
+  _setCurrentBlock() {
     this.currentBlock = this.nextBlock || Block.get();
-    this.nextBlock = Block.get();
     const {
       block: {
         0: { length: colLen },
       },
     } = this.currentBlock;
     this.currentBlock.move(parseInt((this.col - colLen) * 0.5), -1);
+  }
+
+  _setNextBlock() {
+    this.nextBlock = Block.get();
+    const { block, color } = this.nextBlock;
+    const blockMatrixData = new MatrixData(block.length, block[0].length);
+
+    block.forEach((v, i) =>
+      v.forEach((v, j) => (v ? blockMatrixData.cell(i, j, color) : 0))
+    );
+
+    this.listener.update(null, blockMatrixData);
+  }
+
+  _nextTick() {
+    this._setCurrentBlock();
+    this._setNextBlock();
   }
 
   _acceptableMoving(x, y) {

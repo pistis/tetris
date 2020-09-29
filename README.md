@@ -15,6 +15,8 @@ $ open http://localhost:8080/
 
 - refactoring
   - GameOverPanel -> Ranking Score Panel and remove GameOverPanel
+  - Game 종료 조건 오류
+    - 맨 윗칸 한줄만 남은 경우 무한 nextTick
 - features
   - improve design
     - next block view

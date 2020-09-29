@@ -4,8 +4,11 @@ const MatrixData = class extends Array {
   constructor(row, col) {
     super(row);
     prop(this, { col });
-    for (let i = 0; i < row; i++) {
-      this[i] = Array(col).fill(null);
+    this.clear();
+  }
+  clear() {
+    for (let i = 0; i < this.length; i++) {
+      this[i] = Array(this.col).fill(null);
     }
   }
   escape(row, col) {
