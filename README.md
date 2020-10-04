@@ -20,7 +20,6 @@ $ open http://localhost:8080/
 
 ![image](https://user-images.githubusercontent.com/4979560/95021834-6e53e480-06ae-11eb-8a16-bd53043ab5d9.png)
 
-
 ## Todos
 
 - refactoring
@@ -30,16 +29,14 @@ $ open http://localhost:8080/
   - Rotate 개선
     - 블록이 끝 위치로 인해 회전되지 않는 경우 개선
 - features
-  - improve design
-    - score, level
-    - panel
-    - game over view
-    - clear view
-  - next block view
-  - score / stage / speed
   - save score
   - ranking panel
   - controll view
+- improve design
+  - score, level
+  - panel
+  - game over view
+  - clear view
 - improvement
   - checking game over logic
   - clear/adjust line animation/effect
