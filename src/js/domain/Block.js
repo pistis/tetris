@@ -46,6 +46,7 @@ const Block = class {
     this.block.forEach((v, i) =>
       v.forEach((v, j) => (v ? matrixData.cell(i, j, this.color) : 0))
     );
+    return matrixData;
   }
 
   rotateLeft() {
