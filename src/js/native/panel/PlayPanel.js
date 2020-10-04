@@ -12,6 +12,11 @@ const PlayPanel = class extends Panel {
       this.#rootViewId
     }" class="panel" style="width:100%; height:100%;">
         <table class="block"></table>
+        <div style="position:absolute;left: 450px; top: 200px; width: 100px;">
+            <div>score: <span class="score"></span></div>
+            <div>stage: <span class="stage"></span></div>
+            <div>lines: <span class="lines"></span></div>
+        </div>
         <table class="board" style="width:100%;height:100%;border:0px;border-spacing:0;border-collapse:collapse;"></table>
     </div>
   `;
@@ -42,15 +47,15 @@ const PlayPanel = class extends Panel {
   }
   play() {
     this.boardRenderer = new TableMatrixRenderer(
-      SETTINGS.PLAY.COL,
-      SETTINGS.PLAY.ROW,
+      SETTINGS.BOARD.COL,
+      SETTINGS.BOARD.ROW,
       sel(`#${this.#rootViewId} table.board`),
       "#000000"
     );
 
     const nextBlockBoardEl = sel(`#${this.#rootViewId} table.block`);
 
-    this.rankingGame = new RankingGame(SETTINGS.PLAY.ROW, SETTINGS.PLAY.COL, {
+    this.rankingGame = new RankingGame(SETTINGS.BOARD.ROW, SETTINGS.BOARD.COL, {
       start: () => {
         this.addEventListener();
         console.log("game start");
@@ -60,7 +65,8 @@ const PlayPanel = class extends Panel {
         boardMatrixData = null,
         nextBlockMatrixData = null,
         score = null,
-        level = null
+        stage = null,
+        lines = null
       ) => {
         if (boardMatrixData) {
           this.boardRenderer.render(boardMatrixData);
@@ -79,6 +85,15 @@ const PlayPanel = class extends Panel {
             "#000000"
           );
           nextBlockRenderer.render(nextBlockMatrixData);
+        }
+        if (score) {
+          sel(`#${this.#rootViewId} span.score`).innerText = score;
+        }
+        if (stage) {
+          sel(`#${this.#rootViewId} span.stage`).innerText = stage;
+        }
+        if (lines) {
+          sel(`#${this.#rootViewId} span.lines`).innerText = lines;
         }
       },
       end: () => {

@@ -1,6 +1,7 @@
 import { prop } from "../common/Utils.js";
 import Block from "../domain/Block.js";
 import Board from "../domain/Board.js";
+import Stage from "../domain/Stage.js";
 
 const RankingGame = class {
   constructor(row, col, listener) {
@@ -11,6 +12,8 @@ const RankingGame = class {
       currentBlock: null,
       nextBlock: null,
       board: new Board(row, col),
+      stage: new Stage(),
+      playIntervalId: null,
     });
   }
 
@@ -33,13 +36,15 @@ const RankingGame = class {
   notify() {
     this.listener.update(
       this.board.matrixData,
-      this.nextBlock && this.nextBlock.matrixData
+      this.nextBlock && this.nextBlock.matrixData,
+      0,
+      this.stage.stage,
+      this.stage.totalAchievement
     );
   }
 
-  // TODO : stage 구현시 구현
   isClear() {
-    return false;
+    return this.stage.isCompleted();
   }
 
   isGameOver() {
@@ -71,37 +76,49 @@ const RankingGame = class {
     this.notify();
   }
 
+  #tick() {
+    if (this.#moveBlock(0, 1)) {
+      return;
+    }
+
+    const line = this.board.clearLine();
+    if (line) {
+      console.log("점수를 획득 합니다.", line);
+      // this.score.add(line, this.stage);
+      this.stage.update(line);
+      if (this.stage.isAchieved() && this.stage.next()) {
+        console.log("stage가 넘어갑니다.", this.stage.stage, this.stage.speed);
+        this.stopTick();
+        this.startTick();
+      }
+      this.notify();
+    }
+
+    if (this.isClear()) {
+      this.stopTick();
+      this.listener.end();
+      return;
+    }
+
+    if (this.isGameOver()) {
+      this.stopTick();
+      this.listener.end();
+      return;
+    }
+
+    this.#setBlock();
+  }
+  startTick() {
+    this.playIntervalId = setInterval(() => {
+      this.#tick();
+    }, this.stage.speed);
+  }
+  stopTick() {
+    clearInterval(this.playIntervalId);
+  }
   play() {
     this.#setBlock();
-
-    const playIntervalId = setInterval((_) => {
-      if (this.#moveBlock(0, 1)) {
-        return;
-      }
-
-      const line = this.board.clearLine();
-      if (line) {
-        console.log("점수를 획득 합니다.", line);
-        console.log("스테이지가 넘어갑니다.?");
-        // this.score.add(line, this.stage);
-        // this.stage.update();
-      }
-
-      if (this.isClear()) {
-        clearInterval(playIntervalId);
-        this.listener.end();
-        return;
-      }
-
-      if (this.isGameOver()) {
-        clearInterval(playIntervalId);
-        this.listener.end();
-        return;
-      }
-
-      this.#setBlock();
-    }, 300); // this.stage.speed
-
+    this.startTick();
     this.listener.start();
   }
 };
