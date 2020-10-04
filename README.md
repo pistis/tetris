@@ -44,3 +44,4 @@ $ open http://localhost:8080/
   - clear/adjust line animation/effect
   - continueus key input and space key action
   - class diagram
+    - https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml 로 해보자.
