@@ -27,9 +27,11 @@ $ open http://localhost:8080/
   - GameOverPanel -> Ranking Score Panel and remove GameOverPanel
   - Game 종료 조건 오류
     - 맨 윗칸 한줄만 남은 경우 무한 nextTick
+  - tetris.js
+    - domain이 맞는가? host는 아닐까?
+      - matrixdata에 값을 채우는 로직은 어디에서 하는게 맞는가? 책임을 누가 가져야 하는가?
 - features
   - improve design
-    - next block view
     - score, level
     - panel
     - game over view

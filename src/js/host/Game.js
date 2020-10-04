@@ -1,6 +1,5 @@
 import { prop, err } from "../common/Utils.js";
 import { inner } from "../native/Utils.js";
-import Tetris from "../domain/Tetris.js";
 
 const stateDefinition = "title,intro,play,gameOver"
   .split(",")
@@ -10,20 +9,11 @@ const stateDefinition = "title,intro,play,gameOver"
   }, {});
 
 const Game = class {
-  static EVENTS = {
-    TETRIS_PLAY_MOVED_BLOCK: Symbol(),
-    TETRIS_PLAY_REMOVED_LINE: Symbol(),
-    TETRIS_PLAY_ADJUSTED_LINE: Symbol(),
-    TETRIS_PLAY_GAME_OVER: Symbol(),
-  };
   constructor(base) {
     prop(this, {
       base,
       panels: {},
       curr: null,
-      tetris: null,
-      stage: null,
-      score: null,
     });
   }
 

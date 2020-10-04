@@ -1,4 +1,5 @@
 import { prop, random } from "../common/Utils.js";
+import MatrixData from "../protocol/MatrixData.js";
 
 // 각 블록을 2차원 배열로 표현
 // 변환값 예시
@@ -25,29 +26,43 @@ const Block = class {
       .split(",")
       .map((v) => v.split("|").map((v) => v.split("").map((v) => parseInt(v)))),
   ]);
+
   static get() {
     const [color, blocks] = this.blocks[random(this.blocks.length)];
     return new Block(color, blocks, 0, 0);
   }
+
   constructor(color, blocks, x, y) {
     prop(this, { color, blocks, x, y, rotate: 0 });
   }
-  left() {
+
+  get block() {
+    return this.blocks[this.rotate];
+  }
+
+  get matrixData() {
+    const matrixData = new MatrixData(this.block.length, this.block[0].length);
+
+    this.block.forEach((v, i) =>
+      v.forEach((v, j) => (v ? matrixData.cell(i, j, this.color) : 0))
+    );
+  }
+
+  rotateLeft() {
     if (--this.rotate < 0) {
       this.rotate = 3;
     }
   }
-  right() {
+
+  rotateRight() {
     if (++this.rotate > 3) {
       this.rotate = 0;
     }
   }
+
   move(dirX, dirY) {
     this.x += dirX;
     this.y += dirY;
-  }
-  get block() {
-    return this.blocks[this.rotate];
   }
 };
 

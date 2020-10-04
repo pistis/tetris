@@ -1,10 +1,9 @@
 import { prop } from "../../common/Utils.js";
 import { sel } from "../Utils.js";
 import SETTINGS from "../../common/SETTINGS.js";
-import Game from "../../host/Game.js";
 import Panel from "./Panel.js";
 import TableMatrixRenderer from "../renderer/TableMatrixRenderer.js";
-import Tetris from "../../domain/Tetris.js";
+import RankingGame from "../../host/RankingGame.js";
 
 const PlayPanel = class extends Panel {
   #rootViewId = "play_panel";
@@ -18,7 +17,7 @@ const PlayPanel = class extends Panel {
   `;
   constructor() {
     super();
-    prop(this, { base: null, tetris: null, renderer: null });
+    prop(this, { base: null, rankingGame: null, renderer: null });
   }
   _render() {
     return this.#template;
@@ -51,7 +50,7 @@ const PlayPanel = class extends Panel {
 
     const nextBlockBoardEl = sel(`#${this.#rootViewId} table.block`);
 
-    this.tetris = new Tetris(SETTINGS.PLAY.COL, SETTINGS.PLAY.ROW, {
+    this.rankingGame = new RankingGame(SETTINGS.PLAY.ROW, SETTINGS.PLAY.COL, {
       start: () => {
         this.addEventListener();
         console.log("game start");
@@ -88,7 +87,7 @@ const PlayPanel = class extends Panel {
       },
     });
 
-    this.tetris.play();
+    this.rankingGame.play();
   }
   onKeyDown(e) {
     const now = performance.now();
@@ -97,19 +96,19 @@ const PlayPanel = class extends Panel {
       lastKeyIn = now;
       switch (e.keyCode) {
         case 37: // left arrow
-          this.tetris.moveLeft();
+          this.rankingGame.moveLeft();
           break;
         case 39: // right arrow
-          this.tetris.moveRight();
+          this.rankingGame.moveRight();
           break;
         case 38: // up arrow
-          this.tetris.rotate();
+          this.rankingGame.rotate();
           break;
         case 40: // down arrow
-          this.tetris.moveDown();
+          this.rankingGame.moveDown();
           break;
         case 32: // space
-          this.tetris.moveBottom();
+          this.rankingGame.moveBottom();
           break;
       }
     }
