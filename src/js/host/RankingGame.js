@@ -2,6 +2,7 @@ import { prop } from "../common/Utils.js";
 import Block from "../domain/Block.js";
 import Board from "../domain/Board.js";
 import Stage from "../domain/Stage.js";
+import Score from "../domain/Score.js";
 
 const RankingGame = class {
   constructor(row, col, listener) {
@@ -13,6 +14,7 @@ const RankingGame = class {
       nextBlock: null,
       board: new Board(row, col),
       stage: new Stage(),
+      score: new Score(),
       playIntervalId: null,
     });
   }
@@ -37,7 +39,7 @@ const RankingGame = class {
     this.listener.update(
       this.board.matrixData,
       this.nextBlock && this.nextBlock.matrixData,
-      0,
+      this.score.total,
       this.stage.stage,
       this.stage.totalAchievement
     );
@@ -83,8 +85,7 @@ const RankingGame = class {
 
     const line = this.board.clearLine();
     if (line) {
-      console.log("점수를 획득 합니다.", line);
-      // this.score.add(line, this.stage);
+      this.score.update(line, this.stage);
       this.stage.update(line);
       if (this.stage.isAchieved() && this.stage.next()) {
         console.log("stage가 넘어갑니다.", this.stage.stage, this.stage.speed);

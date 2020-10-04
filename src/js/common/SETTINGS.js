@@ -8,14 +8,14 @@ const SETTINGS = {
   },
   RANKING_GAME: {
     STAGE: {
-      MAX: 2,
+      MAX: 5,
       SPEED: {
         LOW: 500,
-        HIGH: 400,
+        HIGH: 50,
       },
       GOAL: {
-        DEFAULT: 1,
-        TERM: 1,
+        DEFAULT: 10,
+        TERM: 3,
       },
     },
   },

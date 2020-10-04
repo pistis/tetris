@@ -64,9 +64,9 @@ const PlayPanel = class extends Panel {
       update: (
         boardMatrixData = null,
         nextBlockMatrixData = null,
-        score = null,
-        stage = null,
-        lines = null
+        score = 0,
+        stage = 1,
+        lines = 0
       ) => {
         if (boardMatrixData) {
           this.boardRenderer.render(boardMatrixData);
@@ -86,15 +86,9 @@ const PlayPanel = class extends Panel {
           );
           nextBlockRenderer.render(nextBlockMatrixData);
         }
-        if (score) {
-          sel(`#${this.#rootViewId} span.score`).innerText = score;
-        }
-        if (stage) {
-          sel(`#${this.#rootViewId} span.stage`).innerText = stage;
-        }
-        if (lines) {
-          sel(`#${this.#rootViewId} span.lines`).innerText = lines;
-        }
+        sel(`#${this.#rootViewId} span.score`).innerText = score;
+        sel(`#${this.#rootViewId} span.stage`).innerText = stage;
+        sel(`#${this.#rootViewId} span.lines`).innerText = lines;
       },
       end: () => {
         this.removeEventListener();
