@@ -18,7 +18,8 @@ $ open http://localhost:8080/
 
 ## Screenshot
 
-![image](https://user-images.githubusercontent.com/4979560/94512307-b01bff80-0256-11eb-8869-3d9d94e7e5d6.png)
+![image](https://user-images.githubusercontent.com/4979560/95021834-6e53e480-06ae-11eb-8a16-bd53043ab5d9.png)
+
 
 ## Todos
 
