@@ -95,7 +95,7 @@ const RankingGame = class {
   }
 
   isGameOver() {
-    return this.board.acceptableBlock();
+    return this.currentBlock.y < 0;
   }
 
   moveLeft() {

@@ -28,8 +28,8 @@ $ open http://localhost:8080/
     - 맨 윗칸 한줄만 남은 경우 무한 nextTick
       - 정확한 종료 조건은? : block의 y 포지션이 0 미만일때
 - features
-  - save score
-  - ranking panel
+  - save score (need server)
+  - ranking panel (need server)
   - controll view
   - next block : 3개 보여주기
   - game over
