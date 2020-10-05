@@ -45,6 +45,11 @@ const Board = class {
     });
   }
 
+  #stopBlock() {
+    this.moving = false;
+    this.boardMatrixData.all(...this.movingMatrixData);
+  }
+
   #moveBlock(x, y) {
     this.moving = true;
     this.movingMatrixData.all(...this.boardMatrixData);
@@ -58,16 +63,23 @@ const Board = class {
     );
   }
 
-  moveBlock(x, y) {
-    if (!this.#acceptableMoving(x, y)) {
-      this.moving = false;
-      this.boardMatrixData.all(...this.movingMatrixData);
+  tick() {
+    const x = 0,
+      y = 1;
+    if (this.#acceptableMoving(x, y)) {
+      this.#moveBlock(x, y);
+      return true;
+    } else {
+      this.#stopBlock();
       return false;
     }
+  }
 
-    this.#moveBlock(x, y);
-
-    return true;
+  moveBottom() {
+    while (this.#acceptableMoving(0, 1)) {
+      this.#moveBlock(0, 1);
+    }
+    this.#stopBlock();
   }
 
   moveLeft() {
@@ -84,12 +96,6 @@ const Board = class {
 
   moveDown() {
     if (this.#acceptableMoving(0, 1)) {
-      this.#moveBlock(0, 1);
-    }
-  }
-
-  moveBottom() {
-    while (this.#acceptableMoving(0, 1)) {
       this.#moveBlock(0, 1);
     }
   }

@@ -26,12 +26,53 @@ const RankingGame = class {
     this.notify();
   }
 
-  #moveBlock() {
-    if (this.board.moveBlock(0, 1)) {
+  #tick() {
+    if (this.board.tick()) {
       this.notify();
       return true;
     } else {
       return false;
+    }
+  }
+
+  #start() {
+    this.playIntervalId = setInterval(() => {
+      if (this.#tick()) {
+        return;
+      }
+
+      this.#evaluate();
+
+      this.#setBlock();
+    }, this.stage.speed);
+  }
+  #stop() {
+    clearInterval(this.playIntervalId);
+  }
+
+  #evaluate() {
+    const line = this.board.clearLine();
+    if (line) {
+      this.score.update(line, this.stage);
+      this.stage.update(line);
+      if (this.stage.isAchieved() && this.stage.next()) {
+        console.log("stage가 넘어갑니다.", this.stage.stage, this.stage.speed);
+        this.#stop();
+        this.#start();
+      }
+      this.notify();
+    }
+
+    if (this.isClear()) {
+      this.#stop();
+      this.listener.end();
+      return;
+    }
+
+    if (this.isGameOver()) {
+      this.#stop();
+      this.listener.end();
+      return;
     }
   }
 
@@ -70,6 +111,9 @@ const RankingGame = class {
 
   moveBottom() {
     this.board.moveBottom();
+    this.#evaluate();
+
+    this.#setBlock();
     this.notify();
   }
 
@@ -78,48 +122,9 @@ const RankingGame = class {
     this.notify();
   }
 
-  #tick() {
-    if (this.#moveBlock(0, 1)) {
-      return;
-    }
-
-    const line = this.board.clearLine();
-    if (line) {
-      this.score.update(line, this.stage);
-      this.stage.update(line);
-      if (this.stage.isAchieved() && this.stage.next()) {
-        console.log("stage가 넘어갑니다.", this.stage.stage, this.stage.speed);
-        this.stopTick();
-        this.startTick();
-      }
-      this.notify();
-    }
-
-    if (this.isClear()) {
-      this.stopTick();
-      this.listener.end();
-      return;
-    }
-
-    if (this.isGameOver()) {
-      this.stopTick();
-      this.listener.end();
-      return;
-    }
-
-    this.#setBlock();
-  }
-  startTick() {
-    this.playIntervalId = setInterval(() => {
-      this.#tick();
-    }, this.stage.speed);
-  }
-  stopTick() {
-    clearInterval(this.playIntervalId);
-  }
   play() {
     this.#setBlock();
-    this.startTick();
+    this.#start();
     this.listener.start();
   }
 };

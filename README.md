@@ -26,20 +26,24 @@ $ open http://localhost:8080/
   - GameOverPanel -> Ranking Score Panel and remove GameOverPanel
   - Game 종료 조건 오류
     - 맨 윗칸 한줄만 남은 경우 무한 nextTick
+      - 정확한 종료 조건은? : block의 y 포지션이 0 미만일때
   - Rotate 개선
     - 블록이 끝 위치로 인해 회전되지 않는 경우 개선
 - features
   - save score
   - ranking panel
   - controll view
+  - next block : 3개 보여주기
 - improve design
   - score, level
   - panel
   - game over view
   - clear view
 - improvement
-  - checking game over logic
+  - block의 최종 도착지점 가이드라인 표시
   - clear/adjust line animation/effect
   - continueus key input and space key action
   - class diagram
     - https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml 로 해보자.
+- 참고
+  - 팩맨 만들기 https://www.youtube.com/watch?v=YBtzzVwrTeE&feature=youtu.be&fbclid=IwAR3ahXg6_vG9m22XyxJ57BYxQ74HF_B5MbFLb5SGkqbmXF_xKjG9EbgCJp4
