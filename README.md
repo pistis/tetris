@@ -34,6 +34,7 @@ $ open http://localhost:8080/
   - ranking panel
   - controll view
   - next block : 3개 보여주기
+  - pause
 - improve design
   - score, level
   - panel

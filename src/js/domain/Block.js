@@ -65,6 +65,11 @@ const Block = class {
     this.x += dirX;
     this.y += dirY;
   }
+
+  position(x, y) {
+    this.x = x;
+    this.y = y;
+  }
 };
 
 export default Block;

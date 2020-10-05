@@ -101,12 +101,24 @@ const Board = class {
   }
 
   rotate() {
-    this._block.rotateLeft();
-    if (!this.#acceptableMoving(0, 0)) {
-      this._block.rotateRight();
-    } else {
-      this.#moveBlock(0, 0);
+    let repeat = 4;
+    let { x, y } = this._block;
+    let rotated = false;
+    while (repeat--) {
+      this._block.rotateLeft();
+      if (!this.#acceptableMoving(0, 0)) {
+        this._block.rotateRight();
+        this._block.move(-1, 0);
+      } else {
+        rotated = true;
+        break;
+      }
     }
+    if (!rotated) {
+      this._block.position(x, y);
+    }
+
+    this.#moveBlock(0, 0);
   }
 
   clearLine() {
