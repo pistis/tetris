@@ -27,14 +27,12 @@ $ open http://localhost:8080/
   - Game 종료 조건 오류
     - 맨 윗칸 한줄만 남은 경우 무한 nextTick
       - 정확한 종료 조건은? : block의 y 포지션이 0 미만일때
-  - Rotate 개선
-    - 블록이 끝 위치로 인해 회전되지 않는 경우 개선
 - features
   - save score
   - ranking panel
   - controll view
   - next block : 3개 보여주기
-  - pause
+  - game over
 - improve design
   - score, level
   - panel

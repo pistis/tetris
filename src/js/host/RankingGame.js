@@ -16,6 +16,7 @@ const RankingGame = class {
       stage: new Stage(),
       score: new Score(),
       playIntervalId: null,
+      paused: false,
     });
   }
 
@@ -37,6 +38,9 @@ const RankingGame = class {
 
   #start() {
     this.playIntervalId = setInterval(() => {
+      if (this.paused) {
+        return;
+      }
       if (this.#tick()) {
         return;
       }
@@ -95,21 +99,33 @@ const RankingGame = class {
   }
 
   moveLeft() {
+    if (this.paused) {
+      return;
+    }
     this.board.moveLeft();
     this.notify();
   }
 
   moveRight() {
+    if (this.paused) {
+      return;
+    }
     this.board.moveRight();
     this.notify();
   }
 
   moveDown() {
+    if (this.paused) {
+      return;
+    }
     this.board.moveDown();
     this.notify();
   }
 
   moveBottom() {
+    if (this.paused) {
+      return;
+    }
     this.board.moveBottom();
     this.#evaluate();
 
@@ -118,8 +134,15 @@ const RankingGame = class {
   }
 
   rotate() {
+    if (this.paused) {
+      return;
+    }
     this.board.rotate();
     this.notify();
+  }
+
+  toggle() {
+    this.paused = !this.paused;
   }
 
   play() {

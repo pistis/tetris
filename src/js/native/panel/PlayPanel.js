@@ -119,6 +119,9 @@ const PlayPanel = class extends Panel {
         case 32: // space
           this.rankingGame.moveBottom();
           break;
+        case 27: // esc
+          this.rankingGame.toggle();
+          break;
       }
     }
   }
