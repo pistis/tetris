@@ -6,7 +6,7 @@ import Panel from "./Panel.js";
 const IntroPanel = class extends Panel {
   #rootViewId = "intro_panel";
   #template = `
-    <div id="${this.#rootViewId}" class="panel">
+    <div id="${this.#rootViewId}" class="panel flex_container">
       <h1>Start Tetris... Let's Play~</h1>
     </div>
   `;

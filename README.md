@@ -24,20 +24,13 @@ $ open http://localhost:8080/
 
 - refactoring
   - GameOverPanel -> Ranking Score Panel and remove GameOverPanel
-  - Game 종료 조건 오류
-    - 맨 윗칸 한줄만 남은 경우 무한 nextTick
-      - 정확한 종료 조건은? : block의 y 포지션이 0 미만일때
 - features
   - save score (need server)
   - ranking panel (need server)
   - controll view
-  - next block : 3개 보여주기
-  - game over
+  - next three block
+  - game over popup
 - improve design
-  - score, level
-  - panel
-  - game over view
-  - clear view
 - improvement
   - block의 최종 도착지점 가이드라인 표시
   - clear/adjust line animation/effect
@@ -46,3 +39,27 @@ $ open http://localhost:8080/
     - https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml 로 해보자.
 - 참고
   - 팩맨 만들기 https://www.youtube.com/watch?v=YBtzzVwrTeE&feature=youtu.be&fbclid=IwAR3ahXg6_vG9m22XyxJ57BYxQ74HF_B5MbFLb5SGkqbmXF_xKjG9EbgCJp4
+
+### 참고 tetris game
+
+- https://ko.y8.com/games/trixology
+- https://ko.y8.com/games/tetris_pro
+
+### tech
+
+- front-end
+  - html/css
+    - view
+  - js
+    - 바닐라 with oop
+- back-end
+  - express
+    - server
+  - mongoose
+    - database
+  - pug
+    - template engine
+  - passport
+    - sign up, log-in
+- advanced
+  - graphQL, typescript

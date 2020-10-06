@@ -7,8 +7,18 @@ const TitlePanel = class extends Panel {
   #rootViewId = "title_panel";
   #template = `
     <div id="${this.#rootViewId}" class="panel">
-      <h1>Tetris</h1>
-      <button class="_play_btn">play</button>
+      <div class="ascii-art" style="color: white;">
+      
+ ______    ___ ______  ____   ____ _____
+ |      |  /  _]      ||    \ |    / ___/
+ |      | /  [_|      ||  D  ) |  (   \_ 
+ |_|  |_||    _]_|  |_||    /  |  |\__  |
+   |  |  |   [_  |  |  |    \  |  |/  \ |
+   |  |  |     | |  |  |  .  \ |  |\    |
+   |__|  |_____| |__|  |__|\_||____|\___|
+                                         
+ 
+      </div>
     </div>
   `;
   constructor() {
@@ -21,20 +31,15 @@ const TitlePanel = class extends Panel {
   _created() {
     this.base = sel(`#${this.#rootViewId}`);
     this.initBindEventListener();
-    this.base.addEventListener("click", this.onClickPlayButton);
+    this.timeoutId = setTimeout(() => {
+      this._game.setState(Game.play);
+    }, 1000);
   }
   _beforeDestroyed() {
-    this.base.removeEventListener("click", this.onClickPlayButton);
+    clearTimeout(this.timeoutId);
   }
   _destroyed() {}
-  initBindEventListener() {
-    this.onClickPlayButton = this.onClickPlayButton.bind(this);
-  }
-  onClickPlayButton($event) {
-    if ($event.target.className === "_play_btn") {
-      this._game.setState(Game.intro);
-    }
-  }
+  initBindEventListener() {}
 };
 
 export default TitlePanel;

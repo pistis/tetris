@@ -4,7 +4,7 @@ const SETTINGS = {
     ROW: 20,
   },
   EVENT: {
-    KEY_INPUT_INTERVAL: 100,
+    KEY_INPUT_INTERVAL: 50,
   },
   RANKING_GAME: {
     STAGE: {

@@ -4,24 +4,23 @@
     <meta charset="UTF-8" />
     <title>Tetris</title>
     <style>
-      #game {
-        width: 400px;
-        height: 800px;
-        border: 1px solid black;
+      body {
+        background-color: #1d1e2b;
+        color: white;
+      }
+      .flex_container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+      }
+      .ascii-art {
+        font-family: monospace;
+        white-space: pre;
       }
     </style>
   </head>
   <body>
-    <div id="game">
-      <div id="intro_panel" class="panel" style="display: none">
-        <h1>Start Tetris... Let's Play~</h1>
-      </div>
-      <div id="play_panel" class="panel" style="display: none"></div>
-      <div id="gameover_panel" class="panel" style="display: none">
-        <h1>Game Over T.T</h1>
-        <button class="_go_title_btn">go title</button>
-      </div>
-    </div>
+    <div id="game" class="flex_container"></div>
     <script type="module" src="./js/App.js"></script>
   </body>
 </html>

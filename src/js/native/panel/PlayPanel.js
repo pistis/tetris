@@ -8,16 +8,25 @@ import RankingGame from "../../host/RankingGame.js";
 const PlayPanel = class extends Panel {
   #rootViewId = "play_panel";
   #template = `
-    <div id="${
-      this.#rootViewId
-    }" class="panel" style="width:100%; height:100%;">
-        <table class="block"></table>
-        <div style="position:absolute;left: 450px; top: 200px; width: 100px;">
-            <div>score: <span class="score"></span></div>
-            <div>stage: <span class="stage"></span></div>
-            <div>lines: <span class="lines"></span></div>
-        </div>
+    <div id="${this.#rootViewId}" class="panel flex_container">
+      <div style="width: 400px; height: 800px;">
         <table class="board" style="width:100%;height:100%;border:0px;border-spacing:0;border-collapse:collapse;"></table>
+      </div>
+      <div style="margin-left: 100px; width: 200px; font-size: 20pt;">
+        <table class="block"></table>
+        <div style="width: 100%; margin: 30px 0;">
+            <div>Score</div>
+            <div class="score">0</div>
+        </div>
+        <div style="width: 100%; margin: 30px 0;">
+            <div>Level</div>
+            <div class="stage">0</div>
+        </div>
+        <div style="width: 100%; margin: 30px 0;">
+            <div>Hit Lines</div>
+            <div class="lines">0</div>
+        </div>
+      </div>
     </div>
   `;
   constructor() {
@@ -50,7 +59,7 @@ const PlayPanel = class extends Panel {
       SETTINGS.BOARD.COL,
       SETTINGS.BOARD.ROW,
       sel(`#${this.#rootViewId} table.board`),
-      "#000000"
+      "#292c39"
     );
 
     const nextBlockBoardEl = sel(`#${this.#rootViewId} table.block`);
@@ -75,20 +84,20 @@ const PlayPanel = class extends Panel {
           const col = nextBlockMatrixData[0].length;
           const row = nextBlockMatrixData.length;
           nextBlockBoardEl.innerHTML = "";
-          nextBlockBoardEl.style.cssText = `position:absolute;left:450px;border:1px solid black;width:${
-            col * 40
-          }px;height:${row * 40}px`;
+          nextBlockBoardEl.style.cssText = `width:${col * 40}px;height:${
+            row * 40
+          }px`;
           const nextBlockRenderer = new TableMatrixRenderer(
             col,
             row,
             nextBlockBoardEl,
-            "#000000"
+            "#292c39"
           );
           nextBlockRenderer.render(nextBlockMatrixData);
         }
-        sel(`#${this.#rootViewId} span.score`).innerText = score;
-        sel(`#${this.#rootViewId} span.stage`).innerText = stage;
-        sel(`#${this.#rootViewId} span.lines`).innerText = lines;
+        sel(`#${this.#rootViewId} div.score`).innerText = score;
+        sel(`#${this.#rootViewId} div.stage`).innerText = stage;
+        sel(`#${this.#rootViewId} div.lines`).innerText = lines;
       },
       end: () => {
         this.removeEventListener();
